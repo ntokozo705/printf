@@ -30,6 +30,15 @@ int _printf(const char *format, ...)
 				case '%':
 					write(1, format, 1);
 					break;
+					case 'i':
+					{
+						int value = va_arg(list, int);
+						char buffer[32];
+						int len = snprintf(buffer, sizeof(buffer), "%d", value);
+						
+						write(1, buffer, len);
+						break;
+					}
 				case 's':
 					{
 						char *value = va_arg(list, char *);
@@ -46,6 +55,15 @@ int _printf(const char *format, ...)
 					{
 						char value = va_arg(list, int);
 						write(1, &value, 1);
+						break;
+					}
+					case 'd':
+					{
+						int value = va_arg(list, int);
+						char buffer[32];
+						int len = snprintf(buffer, sizeof(buffer), "%d", value);
+						
+						write(1, buffer, len);
 						break;
 					}
 				default:
