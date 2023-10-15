@@ -30,12 +30,20 @@ int _printf(const char *format, ...)
 				case '%':
 					write(1, format, 1);
 					break;
-					case 'i':
+				case 'i':
 					{
 						int value = va_arg(list, int);
 						char buffer[32];
 						int len = snprintf(buffer, sizeof(buffer), "%d", value);
 						
+						write(1, buffer, len);
+						break;
+					}
+				case 'u':
+					{
+						unsigned int value = va_arg(list, unsigned int);
+						char buffer[32];
+						int len = snprintf(buffer, sizeof(buffer), "%u", value);
 						write(1, buffer, len);
 						break;
 					}
@@ -57,17 +65,48 @@ int _printf(const char *format, ...)
 						write(1, &value, 1);
 						break;
 					}
-					case 'd':
+				case 'd':
 					{
 						int value = va_arg(list, int);
 						char buffer[32];
 						int len = snprintf(buffer, sizeof(buffer), "%d", value);
-						
+						write(1, buffer, len);
+						break;
+					}
+				case 'p':
+					{
+						void *ptr = va_arg(list, void *);
+						char buffer[20];
+						int len = snprintf(buffer, sizeof(buffer), "%p", ptr);
+						write(1, buffer, len);
+						break;
+					}
+				case 'x':
+					{
+						unsigned int value = va_arg(list, unsigned int);
+						char buffer[32];
+						int len = snprintf(buffer, sizeof(buffer), "%08X", value);
+						write(1, buffer, len);
+						break;
+					}
+				case 'X':
+					{
+						unsigned int value = va_arg(list, unsigned int);
+						char buffer[32];
+						int len = snprintf(buffer, sizeof(buffer), "%08X", value);
+						write(1, buffer, len);
+						break;
+					}
+				case 'o':
+					{
+						unsigned int value = va_arg(list, unsigned int);
+						char buffer[32];
+						int len = snprintf(buffer, sizeof(buffer), "%o", value);
 						write(1, buffer, len);
 						break;
 					}
 				default:
-					write(1, "UNKNOWN_FORMAT_SPECIFIER: %", 26);
+					write(1, format - 1, 1);
 					write(1, format, 1);
 			}
 		}
