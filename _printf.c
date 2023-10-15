@@ -11,7 +11,7 @@
 
 int _printf(const char *format, ...)
 {
-	int charprint = 0;
+	int charcount = 0;
 	va_list list;
 	
 	if (format == NULL)
@@ -29,6 +29,7 @@ int _printf(const char *format, ...)
 			{
 				case '%':
 					write(1, format, 1);
+					charcount++;
 					break;
 				case 'i':
 					{
@@ -37,6 +38,7 @@ int _printf(const char *format, ...)
 						int len = snprintf(buffer, sizeof(buffer), "%d", value);
 						
 						write(1, buffer, len);
+						charcount += len;
 						break;
 					}
 				case 'u':
@@ -45,6 +47,7 @@ int _printf(const char *format, ...)
 						char buffer[32];
 						int len = snprintf(buffer, sizeof(buffer), "%u", value);
 						write(1, buffer, len);
+						charcount += len;
 						break;
 					}
 				case 's':
@@ -57,12 +60,14 @@ int _printf(const char *format, ...)
 							len++;
 						}
 						write(1, value, len);
+						charcount += len;
 						break;
 					}
 				case 'c':
 					{
 						char value = va_arg(list, int);
 						write(1, &value, 1);
+						charcount++;
 						break;
 					}
 				case 'd':
@@ -71,6 +76,7 @@ int _printf(const char *format, ...)
 						char buffer[32];
 						int len = snprintf(buffer, sizeof(buffer), "%d", value);
 						write(1, buffer, len);
+						charcount += len;
 						break;
 					}
 				case 'p':
@@ -79,6 +85,7 @@ int _printf(const char *format, ...)
 						char buffer[20];
 						int len = snprintf(buffer, sizeof(buffer), "%p", ptr);
 						write(1, buffer, len);
+						charcount += len;
 						break;
 					}
 				case 'x':
@@ -87,6 +94,7 @@ int _printf(const char *format, ...)
 						char buffer[32];
 						int len = snprintf(buffer, sizeof(buffer), "%08X", value);
 						write(1, buffer, len);
+						charcount += len;
 						break;
 					}
 				case 'X':
@@ -95,6 +103,7 @@ int _printf(const char *format, ...)
 						char buffer[32];
 						int len = snprintf(buffer, sizeof(buffer), "%08X", value);
 						write(1, buffer, len);
+						charcount += len;
 						break;
 					}
 				case 'o':
@@ -103,11 +112,13 @@ int _printf(const char *format, ...)
 						char buffer[32];
 						int len = snprintf(buffer, sizeof(buffer), "%o", value);
 						write(1, buffer, len);
+						charcount += len;
 						break;
 					}
 				default:
 					write(1, format - 1, 1);
 					write(1, format, 1);
+					charcount += 2;
 			}
 		}
 		else
@@ -117,5 +128,5 @@ int _printf(const char *format, ...)
 		format++;
 	}
 	va_end(list);
-	return (charprint);
+	return (charcount);
 }
