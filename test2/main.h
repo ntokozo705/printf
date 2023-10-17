@@ -7,8 +7,6 @@
 #include <stdlib.h>
 #include <stddef.h>
 
-#define BUFFER_SIZE 1024
-
 int _printf(const char *format, ...);
 int snprintf(char *str, size_t size, const char *format, ...);
 

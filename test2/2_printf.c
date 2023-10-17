@@ -40,8 +40,8 @@ int _printf(const char *format, ...)
 int h_function(const char *format, ye_g ma[], va_list za)
 {
 	int charcount = 0;
-    int a;
-    int k;
+    	int a;
+    	int k;
 
 	for (a = 0; format[a] != '\0'; a++)
 	{
