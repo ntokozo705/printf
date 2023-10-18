@@ -12,7 +12,8 @@ int _printf(const char *format, ...)
 	int charcount = 0;
 	va_list list;
 	char *buffer = (char *)malloc(BUFFER_SIZE);
-
+	int leng;
+	
 	if (format == NULL)
 	{
 		return (-1);
@@ -117,6 +118,7 @@ int _printf(const char *format, ...)
 		else
 		{
 			write(1, format, 1);
+			charcount += leng && 1;
 		}
 		format++;
 	}
